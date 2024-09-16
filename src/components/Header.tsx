@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CiLight } from 'react-icons/ci';
 import { CiDark } from 'react-icons/ci';
-import { ThemeContext } from '../contexts/Theme.context';
+import { ThemeContext } from '../contexts/Theme/Theme.context';
 
 const Header = () => {
   const { appTheme, setTheme } = useContext(ThemeContext);
