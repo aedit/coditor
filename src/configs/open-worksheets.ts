@@ -169,5 +169,8 @@ export default function () {
     setTimeout(() => {
       resolve(mockWorksheetsData);
     }, 1500);
-  });
+  }).then(({ activeWorksheets }) => ({
+    status: activeWorksheets ? 'SUCCESS' : 'FAILURE',
+    data: activeWorksheets,
+  }));
 }

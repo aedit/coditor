@@ -1,4 +1,5 @@
 import { FilesResponse } from '../contexts/Files/Files.types';
+import structureFiles from '../utilities/structureFiles';
 
 const mockFilesData = {
   status: 'SUCCESS',
@@ -587,5 +588,8 @@ export default function () {
     setTimeout(() => {
       resolve(mockFilesData);
     }, 1500);
-  });
+  }).then(({ status, data }) => ({
+    status,
+    data: structureFiles(data.files),
+  }));
 }

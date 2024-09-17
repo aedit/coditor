@@ -1,14 +1,12 @@
 import { useContext } from 'react';
-import { FilesContext } from '../../contexts/Files/Files.context';
+import { Context } from '../../contexts/Files/App.context';
 import { IoChevronDownOutline } from 'react-icons/io5';
 
 import Directory from './Directory';
 import File from './File';
 
 const FileExplorerWindow = () => {
-  const { files } = useContext(FilesContext);
-
-  console.log(files);
+  const { files } = useContext(Context);
 
   const { name, content } = files[0];
 

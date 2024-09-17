@@ -2,11 +2,11 @@ import { ReflexContainer, ReflexSplitter, ReflexElement } from 'react-reflex';
 import FileExplorerWindow from './FileExplorer/FileExplorerWindow';
 import CodeEditor from './CodeEditor';
 import EditorFooter from './EditorFooter/EditorFooter';
-import { FilesContext } from '../contexts/Files/Files.context';
+import { Context } from '../contexts/Files/App.context';
 import { useContext } from 'react';
 
 const EditorWindow = () => {
-  const { isLoading } = useContext(FilesContext);
+  const { isLoading } = useContext(Context);
 
   if (isLoading) {
     return (

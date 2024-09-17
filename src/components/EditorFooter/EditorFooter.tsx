@@ -1,38 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaCodeBranch } from 'react-icons/fa';
 
-import mockBranchesResponse from '../../configs/branches';
 import BranchPopup from './BranchPopup';
-import { BranchesData } from './Branches.types';
+import { Context } from '../../contexts/Files/App.context';
 
 const EditorFooter = () => {
-  const [branches, setBranches] = useState<BranchesData>();
-  const [currentBranch, setCurrentBranch] = useState<string | null>(null);
-  const [isBranchesLoading, setIsBranchesLoading] = useState(true);
-  const [showBranchPopup, setShowBranchPopup] = useState(false);
+  const { branchChanged, branches, currentBranch, isBranchesLoading } =
+    useContext(Context);
 
-  useEffect(() => {
-    setIsBranchesLoading(true);
-    mockBranchesResponse()
-      .then((response) => {
-        if (response.status === 'SUCCESS') {
-          setBranches(response.data);
-          setCurrentBranch(response.data.currentBranch);
-          setIsBranchesLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsBranchesLoading(false);
-      });
-  }, []);
+  const [showBranchPopup, setShowBranchPopup] = useState(false);
 
   const selectBranch = (branch: string) => {
     setShowBranchPopup(false);
     if (branch === currentBranch) return;
-    setCurrentBranch(branch);
-    // TODO: Update current branch with selected branch
-    console.log(`Selected branch: ${branch}`);
+    branchChanged(branch);
   };
 
   return (

@@ -6,6 +6,25 @@ type BranchPopupProps = {
   selectBranch: (branch: string) => void;
 };
 
+const ListItem = ({
+  branch,
+  currentBranch,
+  onClick,
+}: {
+  branch: string;
+  currentBranch: string | null;
+  onClick: (branch: string) => void;
+}) => {
+  return (
+    <li
+      className={`cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-800 px-2 py-1 rounded-md ${branch === currentBranch ? 'text-white !bg-gray-600' : ''}`}
+      onClick={() => onClick(branch)}
+    >
+      {branch}
+    </li>
+  );
+};
+
 const BranchPopup = ({
   className,
   currentBranch,
@@ -21,20 +40,19 @@ const BranchPopup = ({
     <div
       className={
         className +
-        ' branch-popup p-1 shadow-lg border rounded-sm dark:shadow-gray-500 dark:shadow-md'
+        ' z-[101] bg-gray-100 dark:bg-gray-950 branch-popup p-1 px-3 shadow-lg border rounded-sm dark:shadow-md'
       }
     >
       <div className="my-2">
         <div className="font-semibold pb-0.5">Local Branches</div>
         <ul>
           {localBranches.map((branch, idx) => (
-            <li
-              className={`cursor-pointer hover:font-semibold ${branch === currentBranch ? 'text-green-500' : ''}`}
-              onClick={() => branchClicked(branch)}
+            <ListItem
               key={idx}
-            >
-              {branch}
-            </li>
+              branch={branch}
+              currentBranch={currentBranch}
+              onClick={branchClicked}
+            />
           ))}
         </ul>
       </div>
@@ -43,13 +61,12 @@ const BranchPopup = ({
         <div className="font-semibold pb-0.5">Remote Branches</div>
         <ul>
           {remoteBranches.map((branch, idx) => (
-            <li
-              className={`cursor-pointer hover:font-semibold ${branch === currentBranch ? 'text-green-500' : ''}`}
-              onClick={() => branchClicked(branch)}
+            <ListItem
               key={idx}
-            >
-              {branch}
-            </li>
+              branch={branch}
+              currentBranch={currentBranch}
+              onClick={branchClicked}
+            />
           ))}
         </ul>
       </div>
