@@ -24,16 +24,16 @@ export default function (files: FileData[]) {
           name: pathKey,
           relativePath: filePath.slice(0, j + 1).join('/'),
           pathType: 'directory',
-          content: [],
+          subDirectories: [],
           gitIgnored: false,
           gitStatus: null,
         });
       }
 
-      //Extract contents from the directory structure
+      //Extract subDirectoriess from the directory structure
       obj = (obj as FileStructure[]).find(
         (el) => el.name === pathKey
-      )!.content!;
+      )!.subDirectories!;
     }
 
     // Add the current file or directory to the last directory in the file path
@@ -43,7 +43,7 @@ export default function (files: FileData[]) {
       relativePath,
       gitIgnored,
       gitStatus,
-      ...(pathType === 'directory' && { content: [] }),
+      ...(pathType === 'directory' && { subDirectories: [] }),
     });
   }
 

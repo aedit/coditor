@@ -1,19 +1,21 @@
 import { createContext, useState } from 'react';
 
-import mockFilesResponse from '../../configs/list-files';
-import mockWorksheetsResponse from '../../configs/open-worksheets';
-import mockBranchesResponse from '../../configs/branches';
+import mockFilesResponse from '../configs/list-files';
+import mockWorksheetsResponse from '../configs/open-worksheets';
+import mockBranchesResponse from '../configs/branches';
 
-import { FileStructure, WorksheetData } from './Files.types';
-import useMockQuery from '../../hooks/useMockQuery';
-import { BranchesData } from '../../components/EditorFooter/Branches.types';
+import { FileStructure } from './Files/Files.types';
+import useMockQuery from '../hooks/useMockQuery';
+import { BranchesData } from '../components/EditorFooter/Branches.types';
 
 type AppContextType = {
   isLoading: boolean;
   isBranchesLoading: boolean;
   branches: BranchesData | null;
   files: FileStructure[];
-  worksheets: WorksheetData[];
+  worksheets: FileStructure[];
+  activeWorksheet: FileStructure;
+  openFile: (file: FileStructure) => void;
   currentBranch: string;
   branchChanged: (branch: string) => void;
 };
@@ -24,6 +26,8 @@ export const Context = createContext({
   files: [],
   branches: null,
   worksheets: [],
+  activeWorksheet: {} as FileStructure,
+  openFile: () => {},
   currentBranch: 'default',
   branchChanged: () => {},
 } as AppContextType);
@@ -34,9 +38,8 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
   const [isFilesDataLoading, files, filesRefresh] =
     useMockQuery<FileStructure[]>(mockFilesResponse);
 
-  const [isWorksheetLoading, worksheets, worksheetsRefresh] = useMockQuery<
-    WorksheetData[]
-  >(mockWorksheetsResponse);
+  const [isWorksheetLoading, worksheets, worksheetsRefresh, setWorksheets] =
+    useMockQuery<FileStructure[]>(mockWorksheetsResponse);
 
   const [isBranchesLoading, branches] = useMockQuery<BranchesData>(() =>
     mockBranchesResponse().then((response) => {
@@ -44,6 +47,19 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
       return response;
     })
   );
+
+  const [activeWorksheet, setActiveWorksheet] = useState(worksheets?.[0]);
+
+  const openFile = (file: FileStructure) => {
+    const worksheet = worksheets.find(
+      (worksheet) => worksheet.relativePath === file.relativePath
+    );
+    if (!worksheet) {
+      setWorksheets([...worksheets, file]);
+    }
+
+    setActiveWorksheet(worksheet || (file as FileStructure));
+  };
 
   const branchChanged = (branch: string) => {
     setCurrentBranch(branch);
@@ -59,6 +75,8 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
         branches,
         files,
         worksheets,
+        activeWorksheet,
+        openFile,
         currentBranch,
         branchChanged,
       }}

@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { FaCodeBranch } from 'react-icons/fa';
 
 import BranchPopup from './BranchPopup';
-import { Context } from '../../contexts/Files/App.context';
+import { Context } from '../../contexts/App.context';
 
 const EditorFooter = () => {
   const { branchChanged, branches, currentBranch, isBranchesLoading } =

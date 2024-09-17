@@ -7,7 +7,7 @@ type Task<T> = {
 
 const useFetch = <T>(
   asyncTask: () => Promise<Task<T>>
-): [boolean, T, () => void] => {
+): [boolean, T, () => void, (newData: any) => void] => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<T>();
 
@@ -32,7 +32,7 @@ const useFetch = <T>(
     refresh();
   }, [refresh, data]);
 
-  return [isLoading, data!, refresh];
+  return [isLoading, data!, refresh, setData];
 };
 
 export default useFetch;

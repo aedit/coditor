@@ -1,6 +1,9 @@
-import { WorksheetResponse } from '../contexts/Files/Files.types';
+import {
+  FileStructure,
+  WorksheetResponse,
+} from '../contexts/Files/Files.types';
 
-const mockWorksheetsData = {
+const mockWorksheetsData: { activeWorksheets: FileStructure[] } = {
   activeWorksheets: [
     {
       relativePath: 'DBT_TEST/dbt_project.yml',

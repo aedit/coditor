@@ -1,8 +1,8 @@
 import { ReflexContainer, ReflexSplitter, ReflexElement } from 'react-reflex';
 import FileExplorerWindow from './FileExplorer/FileExplorerWindow';
-import CodeEditor from './CodeEditor';
+import EditorPane from './CodeEditor/EditorPane';
 import EditorFooter from './EditorFooter/EditorFooter';
-import { Context } from '../contexts/Files/App.context';
+import { Context } from '../contexts/App.context';
 import { useContext } from 'react';
 
 const EditorWindow = () => {
@@ -31,7 +31,7 @@ const EditorWindow = () => {
             <ReflexSplitter />
 
             <ReflexElement className="code-editor" minSize={200}>
-              <CodeEditor />
+              <EditorPane />
             </ReflexElement>
           </ReflexContainer>
         </ReflexElement>

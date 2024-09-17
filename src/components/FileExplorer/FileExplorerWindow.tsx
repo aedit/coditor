@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Context } from '../../contexts/Files/App.context';
+import { Context } from '../../contexts/App.context';
 import { IoChevronDownOutline } from 'react-icons/io5';
 
 import Directory from './Directory';
@@ -8,7 +8,7 @@ import File from './File';
 const FileExplorerWindow = () => {
   const { files } = useContext(Context);
 
-  const { name, content } = files[0];
+  const { name, subDirectories } = files[0];
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -17,14 +17,14 @@ const FileExplorerWindow = () => {
         {name}
       </div>
       <div className="flex flex-col gap-0.5">
-        {content?.map((el, idx) => {
+        {subDirectories?.map((el, idx) => {
           if (el.pathType === 'directory') {
             return (
               <Directory
                 key={idx}
                 className="pl-1"
                 name={el.name}
-                content={el.content!}
+                subDirectories={el.subDirectories!}
                 relativePath={el.relativePath}
               ></Directory>
             );
@@ -35,6 +35,7 @@ const FileExplorerWindow = () => {
               className="pl-1"
               name={el.name}
               relativePath={el.relativePath}
+              file={el}
             ></File>
           );
         })}

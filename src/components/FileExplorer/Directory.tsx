@@ -7,12 +7,12 @@ import File from './File';
 
 const Directory = ({
   name,
-  content,
+  subDirectories,
   relativePath,
   className = '',
 }: {
   name: string;
-  content: FileStructure[];
+  subDirectories: FileStructure[];
   relativePath: string;
   className?: string;
 }) => {
@@ -35,14 +35,14 @@ const Directory = ({
       </div>
       {isDirectoryOpen && (
         <div className="flex flex-col gap-0.5">
-          {content?.map((el, idx) => {
+          {subDirectories?.map((el, idx) => {
             if (el.pathType === 'directory') {
               return (
                 <Directory
                   key={idx}
                   className="pl-2"
                   name={el.name}
-                  content={el.content!}
+                  subDirectories={el.subDirectories!}
                   relativePath={el.relativePath}
                 ></Directory>
               );
@@ -53,6 +53,7 @@ const Directory = ({
                 className="pl-2"
                 name={el.name}
                 relativePath={el.relativePath}
+                file={el}
               ></File>
             );
           })}
