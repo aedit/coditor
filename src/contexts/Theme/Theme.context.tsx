@@ -7,7 +7,9 @@ export const ThemeContext = createContext<ThemeContextType>({
 } as ThemeContextType);
 
 export const ThemeProvider = ({ children }: { children: JSX.Element }) => {
-  const [appTheme, setAppTheme] = useState<ThemeType>('light');
+  const [appTheme, setAppTheme] = useState<ThemeType>(
+    (localStorage.getItem('appTheme') as ThemeType) || 'light'
+  );
 
   function setTheme() {
     setAppTheme((theme) => (theme === 'light' ? 'dark' : 'light'));
@@ -16,6 +18,7 @@ export const ThemeProvider = ({ children }: { children: JSX.Element }) => {
   useEffect(() => {
     document.body.classList.remove('light', 'dark');
     document.body.classList.add(appTheme);
+    localStorage.setItem('appTheme', appTheme);
   }, [appTheme]);
 
   return (

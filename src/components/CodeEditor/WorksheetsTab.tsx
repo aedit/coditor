@@ -49,12 +49,12 @@ const WorksheetsTab = ({
             key={idx}
             onClick={() => onChange(worksheet)}
             title={worksheet?.relativePath}
-            className={`border border-t-0 border-l-0 border-gray-500 pl-2 pr-1 py-0.5 flex items-center ${worksheet.relativePath === currentWorksheet?.relativePath ? 'text-white bg-gray-600' : ''}`}
+            className={`group border border-t-0 border-l-0 border-gray-500 pl-2 pr-1 py-0.5 flex items-center ${worksheet.relativePath === currentWorksheet?.relativePath ? 'text-white bg-gray-600' : ''}`}
           >
             <span>{worksheet?.name}</span>
             <MdOutlineClose
               onClick={(e) => handleClose(e, worksheet)}
-              className="text-md ml-2 hover:bg-gray-300 rounded-md"
+              className="invisible group-hover:visible text-md ml-2 hover:bg-gray-300 hover:text-black rounded-md"
             />
           </button>
         ))}
@@ -63,11 +63,11 @@ const WorksheetsTab = ({
         <PathViewer relativePath={currentWorksheet?.relativePath} />
       </div>
       <span
-        className="flex items-center absolute right-0 top-0 cursor-pointer p-0.5 px-2 bg-gray-100"
+        className="flex items-center absolute right-0 top-0 cursor-pointer p-0.5 px-2 bg-gray-100 dark:bg-gray-700"
         title="Add new worksheet"
         onClick={addNewWorksheet}
       >
-        <IoIosAddCircle className="text-xl text-gray-400 hover:text-gray-800" />
+        <IoIosAddCircle className="text-xl text-gray-400 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200" />
       </span>
     </div>
   );

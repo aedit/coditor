@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { FaCodeBranch } from 'react-icons/fa';
 
 import BranchPopup from './BranchPopup';
@@ -10,20 +10,39 @@ const EditorFooter = () => {
 
   const [showBranchPopup, setShowBranchPopup] = useState(false);
 
+  const branchRef = useRef<HTMLDivElement>(null);
+
   const selectBranch = (branch: string) => {
     setShowBranchPopup(false);
     if (branch === currentBranch) return;
     branchChanged(branch);
   };
 
+  useEffect(() => {
+    window.addEventListener('click', handleClickOutside, false);
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside, false);
+    };
+  }, []);
+
+  const handleClickOutside = (event: Event) => {
+    if (
+      branchRef.current &&
+      !branchRef.current.contains(event.target as Node)
+    ) {
+      setShowBranchPopup(false);
+    }
+  };
+
   return (
-    <div className="text-xs">
+    <div className="text-xs" ref={branchRef}>
       {isBranchesLoading ? (
         'Loading branches data...'
       ) : (
         <span
           className="flex items-center gap-1 cursor-pointer select-none"
-          onClick={() => setShowBranchPopup((show: boolean) => !show)}
+          onClick={() => setShowBranchPopup(true)}
         >
           <FaCodeBranch />
           {currentBranch ?? 'default'}
