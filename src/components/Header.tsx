@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <header className="header flex items-center justify-between w-full">
-      <span>Welcome to React Editor</span>
+      <span className="font-bold">Coditor</span>
       <span className="pr-5 cursor-pointer text-2xl" onClick={() => setTheme()}>
         {appTheme === 'dark' ? (
           <CiLight className="text-yellow-300" title="Light Mode" />

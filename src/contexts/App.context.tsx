@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import mockFilesResponse from '../configs/list-files';
 import mockWorksheetsResponse from '../configs/open-worksheets';
@@ -39,7 +39,7 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
     useMockQuery<FileStructure[]>(mockFilesResponse);
 
   const [isWorksheetLoading, worksheets, worksheetsRefresh, setWorksheets] =
-    useMockQuery<FileStructure[]>(mockWorksheetsResponse);
+    useMockQuery<FileStructure[]>(() => mockWorksheetsResponse(true));
 
   const [isBranchesLoading, branches] = useMockQuery<BranchesData>(() =>
     mockBranchesResponse().then((response) => {
@@ -49,6 +49,11 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
   );
 
   const [activeWorksheet, setActiveWorksheet] = useState(worksheets?.[0]);
+
+  useEffect(() => {
+    if (!worksheets) return;
+    localStorage.setItem('worksheets', JSON.stringify(worksheets));
+  }, [worksheets]);
 
   const openFile = (file: FileStructure) => {
     const worksheet = worksheets.find(
