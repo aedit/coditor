@@ -5,7 +5,8 @@ import { Context } from '../../contexts/App.context';
 import { ThemeContext } from '../../contexts/Theme/Theme.context';
 
 const EditorPane = () => {
-  const { worksheets, activeWorksheet, openFile } = useContext(Context);
+  const { worksheets, activeWorksheet, openFile, closeWorksheet } =
+    useContext(Context);
   const { appTheme } = useContext(ThemeContext);
 
   return (
@@ -14,6 +15,7 @@ const EditorPane = () => {
         worksheets={worksheets}
         currentWorksheet={activeWorksheet}
         onChange={openFile}
+        closeWorksheet={closeWorksheet}
       />
       <Editor
         height="100%"

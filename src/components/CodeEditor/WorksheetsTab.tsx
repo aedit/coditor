@@ -6,6 +6,7 @@ type WorksheetsTabProps = {
   worksheets: FileStructure[];
   currentWorksheet: FileStructure;
   onChange: (worksheet: FileStructure) => void;
+  closeWorksheet: (worksheet: FileStructure) => void;
 };
 
 const PathViewer = ({ relativePath }: { relativePath: string }) => {
@@ -28,10 +29,14 @@ const WorksheetsTab = ({
   worksheets,
   currentWorksheet,
   onChange,
+  closeWorksheet,
 }: WorksheetsTabProps) => {
-  const closeWorksheet = (evt: React.MouseEvent<SVGElement>) => {
+  const handleClose = (
+    evt: React.MouseEvent<SVGElement>,
+    worksheet: FileStructure
+  ) => {
     evt.stopPropagation();
-    console.log('clicked');
+    closeWorksheet(worksheet);
   };
   return (
     <div>
@@ -45,7 +50,7 @@ const WorksheetsTab = ({
           >
             <span>{worksheet?.name}</span>
             <MdOutlineClose
-              onClick={closeWorksheet}
+              onClick={(e) => handleClose(e, worksheet)}
               className="text-md ml-2 hover:bg-gray-300 rounded-md"
             />
           </button>

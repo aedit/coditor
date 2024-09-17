@@ -169,13 +169,16 @@ const mockWorksheetsData: { activeWorksheets: FileStructure[] } = {
 
 export default function (pickFromlocalStorage: boolean) {
   return new Promise<WorksheetResponse>((resolve) => {
-    let localStorageData =
+    let localStorageWorksheets =
       pickFromlocalStorage && localStorage.getItem('worksheets');
-
-    if (localStorageData && Object.keys(localStorageData).length)
+    if (
+      localStorageWorksheets &&
+      Object.keys(JSON.parse(localStorageWorksheets)).length
+    ) {
       resolve({
-        activeWorksheets: JSON.parse(localStorageData),
+        activeWorksheets: JSON.parse(localStorageWorksheets),
       });
+    }
     setTimeout(() => {
       resolve(mockWorksheetsData);
     }, 1500);

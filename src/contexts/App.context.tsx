@@ -18,6 +18,7 @@ type AppContextType = {
   openFile: (file: FileStructure) => void;
   currentBranch: string;
   branchChanged: (branch: string) => void;
+  closeWorksheet: (sheet: FileStructure) => void;
 };
 
 export const Context = createContext({
@@ -30,6 +31,7 @@ export const Context = createContext({
   openFile: () => {},
   currentBranch: 'default',
   branchChanged: () => {},
+  closeWorksheet: () => {},
 } as AppContextType);
 
 export const ContextProvider = ({ children }: { children: JSX.Element }) => {
@@ -72,6 +74,19 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
     worksheetsRefresh();
   };
 
+  const closeWorksheet = (worksheet: FileStructure) => {
+    let filteredWorksheets = worksheets.filter(
+      (sheet) => sheet.relativePath !== worksheet.relativePath
+    );
+
+    console.log(filteredWorksheets, worksheet);
+
+    if (worksheet.relativePath === activeWorksheet?.relativePath) {
+      setActiveWorksheet(filteredWorksheets[0] || {});
+    }
+    setWorksheets(filteredWorksheets);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -84,6 +99,7 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
         openFile,
         currentBranch,
         branchChanged,
+        closeWorksheet,
       }}
     >
       {children}
