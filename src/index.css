@@ -18,3 +18,7 @@ body {
   width: 100%;
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+

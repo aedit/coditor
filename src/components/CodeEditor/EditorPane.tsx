@@ -1,6 +1,6 @@
 import { Editor } from '@monaco-editor/react';
 import WorksheetsTab from './WorksheetsTab';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Context } from '../../contexts/App.context';
 import { ThemeContext } from '../../contexts/Theme/Theme.context';
 
