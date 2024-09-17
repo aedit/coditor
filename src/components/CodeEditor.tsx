@@ -1,11 +1,7 @@
+import React from 'react';
+
 const CodeEditor = () => {
-  return (
-    <div className="w-full h-full">
-      <div>File Tree</div>
-      <div>Editor</div>
-      <div>Branches</div>
-    </div>
-  );
+  return <div>Code Editor</div>;
 };
 
 export default CodeEditor;
