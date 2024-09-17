@@ -1,7 +1,7 @@
 import { ReflexContainer, ReflexSplitter, ReflexElement } from 'react-reflex';
 import FileExplorer from './FileExplorer';
 import CodeEditor from './CodeEditor';
-import EditorFooter from './EditorFooter';
+import EditorFooter from './EditorFooter/EditorFooter';
 
 const EditorWindow = () => {
   return (
@@ -21,7 +21,10 @@ const EditorWindow = () => {
           </ReflexContainer>
         </ReflexElement>
 
-        <ReflexElement flex={0.05} className="editor-footer">
+        <ReflexElement
+          flex={0.04}
+          className="editor-footer flex items-center relative !overflow-visible"
+        >
           <EditorFooter />
         </ReflexElement>
       </ReflexContainer>
