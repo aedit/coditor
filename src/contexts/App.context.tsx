@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useRef, useState } from 'react';
 
 import mockFilesResponse from '../configs/list-files';
 import mockWorksheetsResponse from '../configs/open-worksheets';
@@ -19,6 +19,7 @@ type AppContextType = {
   currentBranch: string;
   branchChanged: (branch: string) => void;
   closeWorksheet: (sheet: FileStructure) => void;
+  addNewWorksheet: () => void;
 };
 
 export const Context = createContext({
@@ -32,10 +33,13 @@ export const Context = createContext({
   currentBranch: 'default',
   branchChanged: () => {},
   closeWorksheet: () => {},
+  addNewWorksheet: () => {},
 } as AppContextType);
 
 export const ContextProvider = ({ children }: { children: JSX.Element }) => {
   const [currentBranch, setCurrentBranch] = useState('default');
+
+  const newWorksheetIndex = useRef(1);
 
   const [isFilesDataLoading, files, filesRefresh] =
     useMockQuery<FileStructure[]>(mockFilesResponse);
@@ -79,12 +83,30 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
       (sheet) => sheet.relativePath !== worksheet.relativePath
     );
 
-    console.log(filteredWorksheets, worksheet);
-
     if (worksheet.relativePath === activeWorksheet?.relativePath) {
       setActiveWorksheet(filteredWorksheets[0] || {});
     }
     setWorksheets(filteredWorksheets);
+  };
+
+  const addNewWorksheet = () => {
+    console.log(newWorksheetIndex);
+    let newWorksheetName = 'Untitled_' + newWorksheetIndex.current;
+
+    while (worksheets.findIndex((el) => el.name === newWorksheetName) !== -1) {
+      newWorksheetIndex.current = newWorksheetIndex.current + 1;
+      newWorksheetName = 'Untitled_' + newWorksheetIndex.current;
+    }
+    let newWorksheet: FileStructure = {
+      relativePath: newWorksheetName,
+      name: newWorksheetName,
+      pathType: 'file',
+      gitStatus: 'untracked',
+      gitIgnored: false,
+    };
+    setWorksheets([...worksheets, newWorksheet]);
+    setActiveWorksheet(newWorksheet);
+    newWorksheetIndex.current = newWorksheetIndex.current + 1;
   };
 
   return (
@@ -100,6 +122,7 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
         currentBranch,
         branchChanged,
         closeWorksheet,
+        addNewWorksheet,
       }}
     >
       {children}

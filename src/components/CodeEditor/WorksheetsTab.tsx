@@ -1,12 +1,14 @@
 import { IoChevronForward } from 'react-icons/io5';
 import { FileStructure } from '../../contexts/Files/Files.types';
 import { MdOutlineClose } from 'react-icons/md';
+import { IoIosAddCircle } from 'react-icons/io';
+import { useContext } from 'react';
+import { Context } from '../../contexts/App.context';
 
 type WorksheetsTabProps = {
   worksheets: FileStructure[];
   currentWorksheet: FileStructure;
   onChange: (worksheet: FileStructure) => void;
-  closeWorksheet: (worksheet: FileStructure) => void;
 };
 
 const PathViewer = ({ relativePath }: { relativePath: string }) => {
@@ -29,8 +31,9 @@ const WorksheetsTab = ({
   worksheets,
   currentWorksheet,
   onChange,
-  closeWorksheet,
 }: WorksheetsTabProps) => {
+  const { closeWorksheet, addNewWorksheet } = useContext(Context);
+
   const handleClose = (
     evt: React.MouseEvent<SVGElement>,
     worksheet: FileStructure
@@ -39,8 +42,8 @@ const WorksheetsTab = ({
     closeWorksheet(worksheet);
   };
   return (
-    <div>
-      <div className="h-max flex text-sm overflow-x-auto hide-scrollbar">
+    <div className="relative">
+      <div className="h-max flex text-sm overflow-x-auto hide-scrollbar pr-10">
         {worksheets.map((worksheet: FileStructure, idx) => (
           <button
             key={idx}
@@ -59,6 +62,13 @@ const WorksheetsTab = ({
       <div className="h-max flex gap-2 text-xs">
         <PathViewer relativePath={currentWorksheet?.relativePath} />
       </div>
+      <span
+        className="flex items-center absolute right-0 top-0 cursor-pointer p-0.5 px-2 bg-gray-100"
+        title="Add new worksheet"
+        onClick={addNewWorksheet}
+      >
+        <IoIosAddCircle className="text-xl text-gray-400 hover:text-gray-800" />
+      </span>
     </div>
   );
 };
