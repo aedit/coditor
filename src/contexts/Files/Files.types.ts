@@ -37,3 +37,12 @@ export type WorksheetData = {
 export type WorksheetResponse = {
   activeWorksheets: WorksheetData[];
 };
+
+export type FileStructure = {
+  name: string;
+  relativePath: string;
+  pathType: string;
+  content?: FileStructure[];
+  gitIgnored: boolean;
+  gitStatus: string | null;
+};

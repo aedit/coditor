@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from 'react';
 import mockFilesResponse from '../../configs/list-files';
 import mockWorksheetsResponse from '../../configs/open-worksheets';
 
-import { FileData, WorksheetData } from './Files.types';
+import { FileData, FileStructure, WorksheetData } from './Files.types';
 import structureFiles from '../../utilities/structureFiles';
 
 type FilesContextType = {
@@ -20,7 +20,7 @@ export const FilesContext = createContext({
 
 export const FilesProvider = ({ children }: { children: JSX.Element }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [files, setFiles] = useState<FileData[]>([]);
+  const [files, setFiles] = useState<FileStructure[]>([]);
   const [worksheets, setWorksheets] = useState<WorksheetData[]>([]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const FilesProvider = ({ children }: { children: JSX.Element }) => {
     Promise.all([mockFilesResponse(), mockWorksheetsResponse()])
       .then((responses) => {
         if (responses[0].status === 'SUCCESS') {
-          console.log(structureFiles(responses[0].data.files!));
+          setFiles(structureFiles(responses[0].data.files));
         }
         if (responses[1].activeWorksheets) {
           setWorksheets(responses[1].activeWorksheets);
