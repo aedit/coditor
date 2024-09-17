@@ -25,7 +25,7 @@ const EditorWindow = () => {
             className="border border-gray-500 border-b-0"
           >
             <ReflexElement className="file-explorer " minSize={200} flex={0.2}>
-              {!isLoading && <FileExplorerWindow />}
+              <FileExplorerWindow />
             </ReflexElement>
 
             <ReflexSplitter />

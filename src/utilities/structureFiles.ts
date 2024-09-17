@@ -23,7 +23,7 @@ export default function (files: FileData[]) {
         (obj as FileStructure[]).unshift({
           name: pathKey,
           relativePath: filePath.slice(0, j + 1).join('/'),
-          pathType,
+          pathType: 'directory',
           content: [],
           gitIgnored: false,
           gitStatus: null,

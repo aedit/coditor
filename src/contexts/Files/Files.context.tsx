@@ -3,12 +3,12 @@ import { createContext, useEffect, useState } from 'react';
 import mockFilesResponse from '../../configs/list-files';
 import mockWorksheetsResponse from '../../configs/open-worksheets';
 
-import { FileData, FileStructure, WorksheetData } from './Files.types';
+import { FileStructure, WorksheetData } from './Files.types';
 import structureFiles from '../../utilities/structureFiles';
 
 type FilesContextType = {
   isLoading: boolean;
-  files: FileData[];
+  files: FileStructure[];
   worksheets: WorksheetData[];
 };
 
