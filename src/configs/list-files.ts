@@ -1,4 +1,6 @@
-export default {
+import { FilesResponse } from '../contexts/Files/Files.types';
+
+const mockFilesData = {
   status: 'SUCCESS',
   message: 'List of all files and directories fetched successfully',
   data: {
@@ -579,3 +581,11 @@ export default {
     ],
   },
 };
+
+export default function () {
+  return new Promise<FilesResponse>((resolve) => {
+    setTimeout(() => {
+      resolve(mockFilesData);
+    }, 1500);
+  });
+}

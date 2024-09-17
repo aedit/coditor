@@ -1,16 +1,31 @@
 import { ReflexContainer, ReflexSplitter, ReflexElement } from 'react-reflex';
-import FileExplorer from './FileExplorer';
+import FileExplorerWindow from './FileExplorer/FileExplorerWindow';
 import CodeEditor from './CodeEditor';
 import EditorFooter from './EditorFooter/EditorFooter';
+import { FilesContext } from '../contexts/Files/Files.context';
+import { useContext } from 'react';
 
 const EditorWindow = () => {
+  const { isLoading } = useContext(FilesContext);
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <span>Loading...</span>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full h-full dark:border-gray-50 border-gray-800 border-2 rounded-md p-3 pb-1">
+    <div className="w-full h-full">
       <ReflexContainer orientation="horizontal" className="w-full h-full">
         <ReflexElement>
-          <ReflexContainer orientation="vertical">
-            <ReflexElement className="file-explorer" minSize={200} flex={0.2}>
-              <FileExplorer />
+          <ReflexContainer
+            orientation="vertical"
+            className="border border-gray-500 border-b-0"
+          >
+            <ReflexElement className="file-explorer " minSize={200} flex={0.2}>
+              {!isLoading && <FileExplorerWindow />}
             </ReflexElement>
 
             <ReflexSplitter />
@@ -23,7 +38,7 @@ const EditorWindow = () => {
 
         <ReflexElement
           flex={0.04}
-          className="editor-footer flex items-center relative !overflow-visible"
+          className="editor-footer px-2 flex items-center relative !overflow-visible border border-gray-500"
         >
           <EditorFooter />
         </ReflexElement>

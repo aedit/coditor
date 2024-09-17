@@ -1,4 +1,6 @@
-export default {
+import { WorksheetResponse } from '../contexts/Files/Files.types';
+
+const mockWorksheetsData = {
   activeWorksheets: [
     {
       relativePath: 'DBT_TEST/dbt_project.yml',
@@ -161,3 +163,11 @@ export default {
     },
   ],
 };
+
+export default function () {
+  return new Promise<WorksheetResponse>((resolve) => {
+    setTimeout(() => {
+      resolve(mockWorksheetsData);
+    }, 1500);
+  });
+}
