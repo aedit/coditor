@@ -1,8 +1,10 @@
 # Coditor
 
+Live Preview: https://coditor-pi.vercel.app
+
 ## Description
 
-This project is a lightweight, responsive, and customizable code editor built with monacod and react.
+This project is a lightweight, responsive, and customizable code editor built with monaco and react.
 
 Author: Udit Sen (https://aedit.me)
 
@@ -30,7 +32,7 @@ This is a simple implementation of the Monaco Editor interface.
 
 2. Navigate into project directory
     ```bash
-    cd code-editor
+    cd coditor
     ```
 
 3. Install the necessary dependencies
