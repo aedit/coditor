@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Context } from '../../contexts/App.context';
-import { FileStructure } from '../../contexts/Files/Files.types';
+import { FileStructure } from '../../contexts/Files.types';
 import FileIcon from '../FileIcon';
 import { gitStatusMap } from './variables';
 

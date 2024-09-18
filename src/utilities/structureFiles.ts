@@ -1,4 +1,4 @@
-import { FileData, FileStructure } from '../contexts/Files/Files.types';
+import { FileData, FileStructure } from '../contexts/Files.types';
 
 export default function (files: FileData[]) {
   const fileStructure: FileStructure[] = [];

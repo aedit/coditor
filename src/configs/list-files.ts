@@ -1,4 +1,4 @@
-import { FilesResponse } from '../contexts/Files/Files.types';
+import { FilesResponse } from '../contexts/Files.types';
 import structureFiles from '../utilities/structureFiles';
 
 const mockFilesData = {

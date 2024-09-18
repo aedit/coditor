@@ -1,5 +1,5 @@
 import { IoChevronForward } from 'react-icons/io5';
-import { FileStructure } from '../../contexts/Files/Files.types';
+import { FileStructure } from '../../contexts/Files.types';
 import { MdOutlineClose } from 'react-icons/md';
 import { IoIosAddCircle } from 'react-icons/io';
 import { useContext } from 'react';

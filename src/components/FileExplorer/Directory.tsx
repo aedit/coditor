@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IoChevronForward } from 'react-icons/io5';
 import { CiFolderOn } from 'react-icons/ci';
-import { FileStructure } from '../../contexts/Files/Files.types';
+import { FileStructure } from '../../contexts/Files.types';
 import { IoChevronDownOutline } from 'react-icons/io5';
 import File from './File';
 import { gitStatusMap } from './variables';

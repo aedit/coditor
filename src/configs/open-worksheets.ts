@@ -1,7 +1,4 @@
-import {
-  FileStructure,
-  WorksheetResponse,
-} from '../contexts/Files/Files.types';
+import { FileStructure, WorksheetResponse } from '../contexts/Files.types';
 
 const mockWorksheetsData: { activeWorksheets: FileStructure[] } = {
   activeWorksheets: [
@@ -169,7 +166,7 @@ const mockWorksheetsData: { activeWorksheets: FileStructure[] } = {
 
 export default function (pickFromlocalStorage: boolean) {
   return new Promise<WorksheetResponse>((resolve) => {
-    let localStorageWorksheets =
+    const localStorageWorksheets =
       pickFromlocalStorage && localStorage.getItem('worksheets');
     if (
       localStorageWorksheets &&

@@ -4,7 +4,7 @@ import mockFilesResponse from '../configs/list-files';
 import mockWorksheetsResponse from '../configs/open-worksheets';
 import mockBranchesResponse from '../configs/branches';
 
-import { FileStructure } from './Files/Files.types';
+import { FileStructure } from './Files.types';
 import useMockQuery from '../hooks/useMockQuery';
 import { BranchesData } from '../components/EditorFooter/Branches.types';
 
