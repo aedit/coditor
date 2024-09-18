@@ -5,7 +5,8 @@ export default function (files: FileData[]) {
 
   // Loop through all the files
   for (let i = 0; i < files.length; ++i) {
-    const { relativePath, name, pathType, gitIgnored, gitStatus } = files[i];
+    const { relativePath, name, pathType, gitIgnored, gitStatus, content } =
+      files[i];
 
     // Split the relative path into an array of directory names and file names
     const filePath = relativePath.split('/');
@@ -43,7 +44,7 @@ export default function (files: FileData[]) {
       relativePath,
       gitIgnored,
       gitStatus,
-      ...(pathType === 'directory' && { subDirectories: [] }),
+      ...(pathType === 'directory' ? { subDirectories: [] } : { content }),
     });
   }
 

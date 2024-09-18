@@ -6,6 +6,7 @@ export type FileData = {
   index?: number;
   gitStatus: string | null;
   gitIgnored: boolean;
+  content?: string;
 };
 
 export type FilesResponse = {

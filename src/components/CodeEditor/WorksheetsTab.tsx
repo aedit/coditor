@@ -5,6 +5,7 @@ import { IoIosAddCircle } from 'react-icons/io';
 import { useContext } from 'react';
 import { Context } from '../../contexts/App.context';
 import FileIcon from '../FileIcon';
+import { gitStatusMap } from '../FileExplorer/variables';
 
 type WorksheetsTabProps = {
   worksheets: FileStructure[];
@@ -50,7 +51,7 @@ const WorksheetsTab = ({
             key={idx}
             onClick={() => onChange(worksheet)}
             title={worksheet?.relativePath}
-            className={`group border border-t-0 border-l-0 border-gray-500 pl-2 pr-1 py-0.5 flex items-center ${worksheet.relativePath === currentWorksheet?.relativePath ? 'text-white bg-gray-600' : ''}`}
+            className={`group border border-t-0 border-l-0 border-gray-500 pl-2 pr-1 py-0.5 flex items-center ${gitStatusMap[worksheet.gitStatus || 'default'].className} ${worksheet.relativePath === currentWorksheet?.relativePath ? 'text-white bg-gray-600' : ''}`}
           >
             <FileIcon fileName={worksheet.name} className="text-md mr-1" />
             <span>{worksheet?.name}</span>

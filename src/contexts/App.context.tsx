@@ -45,7 +45,12 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
     useMockQuery<FileStructure[]>(mockFilesResponse);
 
   const [isWorksheetLoading, worksheets, worksheetsRefresh, setWorksheets] =
-    useMockQuery<FileStructure[]>(() => mockWorksheetsResponse(true));
+    useMockQuery<FileStructure[]>(() =>
+      mockWorksheetsResponse(true).then((response) => {
+        setActiveWorksheet(response.data[0]);
+        return response;
+      })
+    );
 
   const [isBranchesLoading, branches] = useMockQuery<BranchesData>(() =>
     mockBranchesResponse().then((response) => {
@@ -79,7 +84,7 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const closeWorksheet = (worksheet: FileStructure) => {
-    let filteredWorksheets = worksheets.filter(
+    const filteredWorksheets = worksheets.filter(
       (sheet) => sheet.relativePath !== worksheet.relativePath
     );
 
@@ -96,7 +101,7 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
       newWorksheetIndex.current = newWorksheetIndex.current + 1;
       newWorksheetName = 'Untitled_' + newWorksheetIndex.current;
     }
-    let newWorksheet: FileStructure = {
+    const newWorksheet: FileStructure = {
       relativePath: newWorksheetName,
       name: newWorksheetName,
       pathType: 'file',

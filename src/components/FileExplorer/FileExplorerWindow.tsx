@@ -16,7 +16,7 @@ const FileExplorerWindow = () => {
         <IoChevronDownOutline className="text-md" />
         {name}
       </div>
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col gap-0.5 overflow-auto h-[calc(100vh_-_8.5rem)]">
         {subDirectories?.map((el, idx) => {
           if (el.pathType === 'directory') {
             return (
@@ -26,6 +26,7 @@ const FileExplorerWindow = () => {
                 name={el.name}
                 subDirectories={el.subDirectories!}
                 relativePath={el.relativePath}
+                gitStatus={el.gitStatus || 'default'}
               ></Directory>
             );
           }
