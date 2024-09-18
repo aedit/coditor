@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { FaFile } from 'react-icons/fa';
 import { Context } from '../../contexts/App.context';
 import { FileStructure } from '../../contexts/Files/Files.types';
+import FileIcon from '../FileIcon';
 
 const File = ({
   name,
@@ -24,7 +24,7 @@ const File = ({
         title={relativePath}
       >
         <span className="pr-3"></span>
-        <FaFile className="text-sm" />
+        <FileIcon fileName={name} className="text-sm" />
         <span>{name}</span>
       </div>
     </div>

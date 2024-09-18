@@ -18,7 +18,7 @@ const EditorPane = () => {
       <Editor
         height="100%"
         className="flex-1"
-        value={(activeWorksheet?.editorContent as string) || ''}
+        value={(activeWorksheet?.content as string) || ''}
         defaultValue="Start Typing..."
         defaultLanguage="python"
         {...(appTheme === 'dark' && { theme: 'vs-dark' })}

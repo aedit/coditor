@@ -24,7 +24,7 @@ const EditorWindow = () => {
             orientation="vertical"
             className="border border-gray-500 border-b-0"
           >
-            <ReflexElement className="file-explorer " minSize={200} flex={0.2}>
+            <ReflexElement className="file-explorer" minSize={200} flex={0.2}>
               <FileExplorerWindow />
             </ReflexElement>
 

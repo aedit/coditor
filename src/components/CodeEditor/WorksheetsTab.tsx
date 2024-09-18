@@ -4,6 +4,7 @@ import { MdOutlineClose } from 'react-icons/md';
 import { IoIosAddCircle } from 'react-icons/io';
 import { useContext } from 'react';
 import { Context } from '../../contexts/App.context';
+import FileIcon from '../FileIcon';
 
 type WorksheetsTabProps = {
   worksheets: FileStructure[];
@@ -51,6 +52,7 @@ const WorksheetsTab = ({
             title={worksheet?.relativePath}
             className={`group border border-t-0 border-l-0 border-gray-500 pl-2 pr-1 py-0.5 flex items-center ${worksheet.relativePath === currentWorksheet?.relativePath ? 'text-white bg-gray-600' : ''}`}
           >
+            <FileIcon fileName={worksheet.name} className="text-md mr-1" />
             <span>{worksheet?.name}</span>
             <MdOutlineClose
               onClick={(e) => handleClose(e, worksheet)}

@@ -90,7 +90,6 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const addNewWorksheet = () => {
-    console.log(newWorksheetIndex);
     let newWorksheetName = 'Untitled_' + newWorksheetIndex.current;
 
     while (worksheets.findIndex((el) => el.name === newWorksheetName) !== -1) {
